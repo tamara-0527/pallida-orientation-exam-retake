@@ -58,6 +58,10 @@ function creatingSizeOptions(arr) {
   });
 };
 
+// function createURL(name, size, quantity) {
+//   let endpoint = '/price-check?item=' + name + '&size=' + size + 'quantity=' + quantity;
+//   return endpoint;
+// };
 
 button.addEventListener('click', function multiplePrice(arr) {
   var quantity = arr.store;
@@ -68,11 +72,9 @@ button.addEventListener('click', function multiplePrice(arr) {
     alert('error, we don\'t have enough items in store')
   }
   alert('The total price is:' + sum); 
-})
-
+});
 
 
 ajax('GET', 'http://localhost:8080/warehouse', appendTable);
 ajax('GET', 'http://localhost:8080/warehouse', creatingNameOptions);
 ajax('GET', 'http://localhost:8080/warehouse', creatingSizeOptions);
-

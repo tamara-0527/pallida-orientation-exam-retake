@@ -47,7 +47,7 @@ app.get('/price-check', function(req, res) {
   let selectedQuantity = document.querySelector('input');
   let total = selectedQuantity * price;
 
-  connection.query(price, name, size, quantity,id, function(err, result, fields) {
+  connection.query(price, name, size, quantity, id, function(err, result, fields) {
       if (selectedQuantity > quantity) {
         res.send({
           "result": "error, we don't have enough items in store"
@@ -61,9 +61,16 @@ app.get('/price-check', function(req, res) {
         'result': 'ok',
         'total-price': total
       });
-    })
+    });
+
+app.get('/check', function(req, res) {
+  connection.query('SELECT item_name, id, size, unit_price FROM clothes.warehouse', function(err, result) {
+    res.send({
+      'result': 'ok',
+      'order': 'ok'
   });
-    
+});
+
 app.listen(8080, function(){
   console.log('server running');
 });
