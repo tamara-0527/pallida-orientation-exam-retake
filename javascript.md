@@ -96,4 +96,9 @@ Return the following JSON if the quantity is smaller than 3:
 ## 2) Quiz time
 
  - What is a middleware and why it's used? (2p)
+ The midddleware takes up position between the request send and the response. The middleware is a tool, which offer service to the application.
+ Middleware makes it easier for software developers to implement communication and input/output, so they can focus on the specific purpose of their application.
+
  - What's the main difference between the `onload` and the `readystatechange` provided by the `XMLHttpRequest` object? (1p)
+The onload executes a function immediately after a page has been loaded.
+Redystatechange contains the event handler to be called when the readystatechange event is fired, that is every time the readyState property of the XMLHttpRequest changes.
