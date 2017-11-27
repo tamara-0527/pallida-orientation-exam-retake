@@ -3,6 +3,7 @@
 var express = require('express');
 var mysql = require('mysql');
 
+
 var app = express();
 app.use('/', express.static('./'));
 app.use(express.json());
@@ -26,19 +27,18 @@ app.get('/', function(req, res) {
 });
 
 app.get('/warehouse', function(req, res) {
+  let names = 'SELECT DISTINCT item_name FROM clothes.warehouse GROUP by item_name;'
+  let sizes = 'SELECT DISTINCT size FROM clothes.warehouse GROUP by size;'
   let data = []
-  connection.query('SELECT * FROM clothes.warehouse', function(err, result, fields) {
-    console.log(result);
+  connection.query('SELECT id, item_name, manufacturer, category, size, unit_price FROM clothes.warehouse', names, function(err, result, fields) {
     result.forEach(element => {
-      console.log(element)
       data.push(element);
     });
-    res.send({
-      'result': 'ok',
-      'clothes': data
-    });
+    res.send(data);
   })
 });
+
+// app.get('/check', function(req, res))
 
 app.listen(8080, function(){
   console.log('server running');

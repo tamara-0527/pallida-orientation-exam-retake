@@ -12,10 +12,10 @@ function ajax (command, url, callback) {
   xhr.send();
 };
 
-
 function appendTable(result) {
   var table = document.querySelector('table');
   table.innerHTML = `<tr>
+                      <th>Id</th>
                       <th>Item name</th>
                       <th>Manufacturer</th> 
                       <th>Category</th>
@@ -35,6 +35,27 @@ function appendTable(result) {
     `
     table.innerHTML += selectedItems;
   }, this);
-}
+};
 
-ajax('GET', 'http://localhost:8080/shoppingplanner', appendTable)
+function creatingNameOptions(arr) {
+  arr.forEach(function(element) {
+    let selected = document.querySelector('#name');
+    let nameOptions = document.createElement('option');
+    nameOptions.textContent = element.item_name;
+    selected.appendChild(nameOptions);
+  });
+};
+
+function creatingSizeOptions(arr) {
+  arr.forEach(function(element) {
+    let selected = document.querySelector('#size')
+    let sizeOptions = document.createElement('option');
+    sizeOptions.textContent = element.size;
+    selected.appendChild(sizeOptions);
+  });
+};
+
+ajax('GET', 'http://localhost:8080/warehouse', appendTable);
+ajax('GET', 'http://localhost:8080/warehouse', creatingNameOptions);
+ajax('GET', 'http://localhost:8080/warehouse', creatingSizeOptions);
+
