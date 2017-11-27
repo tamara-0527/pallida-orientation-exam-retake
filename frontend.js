@@ -1,11 +1,14 @@
 'use strict';
 
+let button = document.querySelector('button')
+let input = document.querySelector('input')
+
 function ajax (command, url, callback) {
   let xhr = new XMLHttpRequest();
   xhr.open(command, url);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.onload = function() {
-  console.log(xhr.responseText);
+    console.log(xhr.responseText);
     var data = JSON.parse(xhr.responseText);
     callback(data);
   };
@@ -21,18 +24,18 @@ function appendTable(result) {
                       <th>Category</th>
                       <th>Size</th>
                       <th>Unit price</th>
-                    </tr>
-  `
-  result.forEach(function(element) {
-    const selectedItems = `<tr>
-                      <td>${element.id}</td>
-                      <td>${element.item_name}</td>
-                      <td>${element.manufacturer}</td>
-                      <td>${element.category}</td>
-                      <td>${element.size}</td>
-                      <td>${element.unit_price}</td>                   
-                    </tr>
-    `
+                      </tr>
+                      `
+                      result.forEach(function(element) {
+                        const selectedItems = `<tr>
+                        <td>${element.id}</td>
+                        <td>${element.item_name}</td>
+                        <td>${element.manufacturer}</td>
+                        <td>${element.category}</td>
+                        <td>${element.size}</td>
+                        <td>${element.unit_price}</td>                   
+                        </tr>
+                        `
     table.innerHTML += selectedItems;
   }, this);
 };
@@ -54,6 +57,13 @@ function creatingSizeOptions(arr) {
     selected.appendChild(sizeOptions);
   });
 };
+
+button.addEventListener('click', function multiplePrice(arr) {
+    var sum = input.value * arr.unit_price;
+    alert('The total price is:' + sum);
+})
+
+
 
 ajax('GET', 'http://localhost:8080/warehouse', appendTable);
 ajax('GET', 'http://localhost:8080/warehouse', creatingNameOptions);

@@ -38,8 +38,32 @@ app.get('/warehouse', function(req, res) {
   })
 });
 
-// app.get('/check', function(req, res))
+app.get('/price-check', function(req, res) {
+  let price = 'SELECT * FROM warehouse WHERE unit_price = ?';;
+  let name = 'SELECT * FROM warehouse WHERE item_name = ?';
+  let size = 'SELECT * FROM warehouse WHERE size = ?';
+  let quantity = 'SELECT * FROM warehouse WHERE in_store = ?';
+  let id = 'SELECT * FROM warehouse WHERE id = ?';  
+  let selectedQuantity = document.querySelector('input');
+  let total = selectedQuantity * price;
 
+  connection.query(price, name, size, quantity,id, function(err, result, fields) {
+      if (selectedQuantity > quantity) {
+        res.send({
+          "result": "error, we don't have enough items in store"
+        });
+      } else if(selectedQuantity < 3) {
+        res.send({
+          "result": "please order at least 3, one for yourself, two for your friends"
+        });
+      }
+      res.send({
+        'result': 'ok',
+        'total-price': total
+      });
+    })
+  });
+    
 app.listen(8080, function(){
   console.log('server running');
-})
+});
