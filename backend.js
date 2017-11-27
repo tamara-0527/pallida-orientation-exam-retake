@@ -25,6 +25,21 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/warehouse', function(req, res) {
+  let data = []
+  connection.query('SELECT * FROM clothes.warehouse', function(err, result, fields) {
+    console.log(result);
+    result.forEach(element => {
+      console.log(element)
+      data.push(element);
+    });
+    res.send({
+      'result': 'ok',
+      'clothes': data
+    });
+  })
+});
+
 app.listen(8080, function(){
   console.log('server running');
 })
