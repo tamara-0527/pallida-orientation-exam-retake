@@ -58,9 +58,16 @@ function creatingSizeOptions(arr) {
   });
 };
 
+
 button.addEventListener('click', function multiplePrice(arr) {
-    var sum = input.value * arr.unit_price;
-    alert('The total price is:' + sum);
+  var quantity = arr.store;
+  var sum = input.value * arr.unit_price;
+  if(input.value < 3) {
+    alert('please order at least 3, one for yourself, two for your friends')
+  } else if(input.value > quantity) {
+    alert('error, we don\'t have enough items in store')
+  }
+  alert('The total price is:' + sum); 
 })
 
 
